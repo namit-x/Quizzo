@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 
@@ -33,7 +33,7 @@ const Signup = () => {
         alert('There\'s already an account with these details.')
       }
       else if (response === 'Success') {
-        alert ('Singed up, Now you can login into your account')
+        alert('Singed up, Now you can login into your account')
         navigate('/login')
       }
     }
@@ -53,7 +53,23 @@ const Signup = () => {
         <input type="text" id='set_username' placeholder='Enter username...' {...register("username", { required: { value: true, message: "Enter username for proceeding forward" } })} className='w-72 rounded-3xl border-2 border-white p-2 bg-transparent placeholder-white text-white focus outline-none' />
         {errors.username && <div className='text-red-500'>{errors.username.message}</div>}
         <label htmlFor="Age" className='text-white p-2'>Age</label>
-        <input type="text" id='Age' placeholder='Enter Age...' {...register("age", { required: { value: true, message: "Enter Age for proceeding forward" } })} className='w-72 rounded-3xl border-2 border-white p-2 bg-transparent placeholder-white text-white focus outline-none' />
+        <input
+          type="number"
+          id="Age"
+          placeholder="Enter Age..."
+          {...register("age", {
+            required: { value: true, message: "Enter Age for proceeding forward" },
+            validate: value => {
+              if (value && value % 1 !== 0) {
+                return "Age must be an integer";
+              }
+              return true;
+            }
+
+          })}
+          className="w-72 rounded-3xl border-2 border-white p-2 bg-transparent placeholder-white text-white focus:outline-none"
+        />
+
         {errors.password && <div className='text-red-500'>{errors.password.message}</div>}
         <label htmlFor="set_password" className='text-white p-2'>Set Password</label>
         <input type="text" placeholder='Enter Password...' id='set_password' {...register("password", { required: { value: true, message: "Enter password for proceeding forward" } })} className='w-72 rounded-3xl border-2 border-white p-2 bg-transparent placeholder-white text-white focus outline-none' />
