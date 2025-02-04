@@ -63,14 +63,11 @@ const AfterLogin = () => {
       formData.append('image', file)
       formData.append('userID', find)
 
-      console.log('userID: ', find)
-
       const response = await fetch('http://localhost:3000/api/upload-image', {
         method: 'POST',
         body: formData
       });
       const result = await response.text();
-      console.log('response: ', response)
       if (response.ok) {
         setFile(formData)
         setUploaded(true)
